@@ -3,10 +3,17 @@ const Web3 = require('web3');
 const abi = process.argv[2].toString();
 const bytecode = process.argv[3].toString();
 const web3 = new Web3(new Web3.providers.HttpProvider("http://"+process.argv[4].toString()+":8545"));
+console.log(abi);
+console.log(bytecode);
+console.log(process.argv[4].toString())
 const deploy = async () => {
+    try {
 	const accounts = await web3.eth.getAccounts();
 	console.log('Attempting to deploy from account', accounts[0]);
 	const result = await new web3.eth.Contract(abi).deploy({ data: '0x' + bytecode}).send({ gas: '1000000', from: accounts[0] });
 	console.log('Contract deployed to', result.options.address);
+    } catch(err) {
+	console.log(err);
+    }
 };
 deploy();
