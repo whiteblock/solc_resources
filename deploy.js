@@ -1,11 +1,9 @@
 //deploy.js
+const args = require('/eth2/smartcontracts/deploymentArgs.json');
 const Web3 = require('web3');
-const abi = process.argv[2].toString();
-const bytecode = process.argv[3].toString();
-const web3 = new Web3(new Web3.providers.HttpProvider("http://"+process.argv[4].toString()+":8545"));
-console.log(abi);
-console.log(bytecode);
-console.log(process.argv[4].toString())
+const abi = args.abi;
+const bytecode = args.bytecode;
+const web3 = new Web3(new Web3.providers.HttpProvider("http://"+process.argv[1].toString()+":8545"));
 const deploy = async () => {
     try {
 	const accounts = await web3.eth.getAccounts();
